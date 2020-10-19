@@ -1,0 +1,17 @@
+// Woocommerce New Order email subject line customisation to included Currency Code and Customer Name =======================================================
+
+add_filter('woocommerce_email_subject_new_order', 'change_admin_email_subject', 1, 2);
+
+function change_admin_email_subject( $subject, $order ) {
+
+	global $woocommerce;
+  
+	$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+  
+$order_currency = $order->get_currency();
+
+	$subject = sprintf( '[%s] New Customer Order (# %s) - %s - %s %s', $blogname, $order->id, $order_currency, $order->billing_first_name, $order->billing_last_name );
+  
+	return $subject;
+  
+}
